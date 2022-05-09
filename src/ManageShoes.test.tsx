@@ -1,14 +1,14 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import ManageShoes from './ManageShoes';
+import App from './App';
 
 it('renders heading', () => {
-  render(<ManageShoes />);
-  screen.getByRole("heading", { name: "Everkicks" });
+  render(<App />);
+  screen.getByRole("heading", { name: "Everkicks: Manage Shoes" });
 });
 
 it('supports adding a shoe', () => {
-  render(<ManageShoes />);
+  render(<App />);
   const input: HTMLInputElement = screen.getByLabelText("Shoe name");
   const submit = screen.getByRole("button", { name: "Add shoe" });
   fireEvent.change(input, { target: { value: "Steve Madden" } });

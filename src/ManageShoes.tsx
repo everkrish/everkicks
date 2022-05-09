@@ -1,12 +1,16 @@
 import { useState } from "react";
 
-function ManageShoes() {
+interface ManageShoesProps {
+    shoes: string[],
+    setShoes: React.Dispatch<React.SetStateAction<string[]>>
+}
+
+function ManageShoes({shoes, setShoes}: ManageShoesProps) {
     // The state is watched by React so that it knows when to re-render the screen
-    const [shoes, setShoes] = useState(["Nike", "Reebok", "Adidas"]);
     const [newShoe, addShoe] = useState("");
     return (
         <>
-            <h1>Everkicks</h1>
+            <h1>Everkicks: Manage Shoes</h1>
             <form onSubmit={(event) => {
                 event.preventDefault();
                 setShoes([...shoes, newShoe]);

@@ -1,7 +1,9 @@
+interface HomeProps {
+    shoes: string[];
+}
 
-function Home() {
+function Home({ shoes }: HomeProps) {
     // The state is watched by React so that it knows when to re-render the screen
-    const shoes: Array<string> = [];
     return (
         <>
             <h1>Everkicks</h1>
