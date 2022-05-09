@@ -1,9 +1,22 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+it('renders heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  screen.getByRole("heading", { name: "Everkicks" });
 });
+
+it('supports adding a shoe', () => {
+  render(<App />);
+  const input: HTMLInputElement = screen.getByLabelText("Shoe name");
+  const submit = screen.getByRole("button", { name: "Add shoe" });
+  fireEvent.change(input, { target: { value: "Steve Madden" } });
+  fireEvent.click(submit);
+
+  // Test input is empty on submit
+  expect(input.value).toEqual("");
+
+  // Test that input has gone through
+  screen.getByText("Steve Madden");
+})
