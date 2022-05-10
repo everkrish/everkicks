@@ -2,8 +2,17 @@
 // @ts-ignore
 describe("ManageShoes", () => {
     it('should visit the manage shoes page', () => {
-        // Check input works on admin page
         cy.visit("http://localhost:3000/admin/shoes");
+
+        // Check for error messages
+        cy.findByRole("button", { name: "Add shoe" }).click();
+        cy.findByText("Brand is required.");
+        cy.findByText("Name is required.");
+        cy.findByText("Price is required.");
+        cy.findByText("Size is required.");
+        cy.findByText("Date is required.");
+
+        // Check input works on admin page
         cy.findByLabelText("Brand").select("British Knights");
         cy.findByLabelText("Shoe name").type("Oxford");
         cy.findByLabelText("Price").type("89.99");
