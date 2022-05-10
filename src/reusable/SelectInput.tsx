@@ -26,7 +26,7 @@ export default function SelectInput({ id, value, label, options, error, onChange
                     value={value}
                     onChange={onChange}
                 >
-                    { options.map((option) => <option value={option.value}>{option.label}</option>) }
+                    { options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>) }
                 </select>
                 <br/>
             </div>

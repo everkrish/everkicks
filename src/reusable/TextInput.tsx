@@ -4,7 +4,7 @@ interface TextInputProps {
     /** Unique id */
     id: string;
     /** Text input value */
-    value: string;
+    value: string | number;
     /** Text input label */
     label: string;
     /** Validation error */
@@ -13,9 +13,11 @@ interface TextInputProps {
     onChange: ChangeEventHandler<HTMLInputElement>;
     /** HTML Input type */
     type?: "text" | "date" | "number" | "phone" | "password";
+    /** For number only: number step */
+    step?: string;
 }
 
-export default function TextInput({ id, value, label, error, onChange, type="text" }: TextInputProps) {
+export default function TextInput({ id, value, label, error, onChange, type="text", step }: TextInputProps) {
     return (
         <>
             <div>
@@ -26,6 +28,7 @@ export default function TextInput({ id, value, label, error, onChange, type="tex
                     id={id}
                     value={value}
                     onChange={onChange}
+                    step={step}
                 />
                 <br/>
             </div>

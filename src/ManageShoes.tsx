@@ -83,23 +83,25 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
                     />
                     <TextInput
                         id="size"
-                        value={size.toString()}
+                        value={size}
                         label="Shoe size"
                         onChange={onChange}
                         type="number"
+                        step="0.5"
                         error={errors.size}
                     />
                     <TextInput
                         id="price"
-                        value={price.toString()}
+                        value={price}
                         label="Price"
                         onChange={onChange}
                         type="number"
+                        step="0.01"
                         error={errors.price}
                     />
                     <TextInput
                         id="date"
-                        value={date.toString()}
+                        value={date}
                         label="Release Date"
                         onChange={onChange}
                         type="date"
