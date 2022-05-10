@@ -1,3 +1,5 @@
+import SelectInput from "src/reusable/SelectInput";
+import TextInput from "src/reusable/TextInput";
 import { ShoeList } from "src/ShoeList";
 import { Shoe } from "./types/types";
 import { ChangeEvent, useState } from "react";
@@ -61,69 +63,48 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
                     setShoes([...shoes, newShoe]);
                     setNewShoe(defaultShoe);
                 }}>
-                    <div>
-                        <label htmlFor="brand">Brand</label>
-                        <br/>
-                        <select id="brand" value={brand}
-                                onChange={onChange}>
-                            <option value="">Select brand</option>
-                            <option value="Nike">Nike</option>
-                            <option value="Adidas">Adidas</option>
-                            <option value="British Knights">British Knights</option>
-                        </select>
-                        <br/>
-                    </div>
-                    { errors.brand && <div>{errors.brand}</div> }
-                    <div>
-                        <label htmlFor="name">Shoe name</label>
-                        <br/>
-                        <input
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={onChange}
-                        />
-                        <br/>
-                    </div>
-                    { errors.name && <div>{errors.name}</div> }
-                    <div>
-                        <label htmlFor="size">Shoe size</label>
-                        <br/>
-                        <input
-                            type="number"
-                            step="0.5"
-                            id="size"
-                            value={size}
-                            onChange={onChange}
-                        />
-                        <br/>
-                    </div>
-                    { errors.size && <div>{errors.size}</div> }
-                    <div>
-                        <label htmlFor="price">Price</label>
-                        <br/>
-                        <input
-                            type="number"
-                            step="0.01"
-                            id="price"
-                            value={price}
-                            onChange={onChange}
-                        />
-                        <br/>
-                    </div>
-                    { errors.price && <div>{errors.price}</div> }
-                    <div>
-                        <label htmlFor="date">Release Date</label>
-                        <br/>
-                        <input
-                            type="date"
-                            id="date"
-                            value={date}
-                            onChange={onChange}
-                        />
-                        <br/>
-                    </div>
-                    { errors.date && <div>{errors.date}</div> }
+                    <SelectInput
+                        id="brand" value={brand} label="Brand" onChange={onChange}
+                        options={[
+                            { value: "", label: "Select brand" },
+                            { value: "Nike", label: "Nike" },
+                            { value: "Adidas", label: "Adidas" },
+                            { value: "British Knights", label: "British Knights" }
+                        ]}
+                        error={errors.brand}
+                    />
+                    <TextInput
+                        id="name"
+                        value={name}
+                        label="Shoe name"
+                        onChange={onChange}
+                        type="text"
+                        error={errors.name}
+                    />
+                    <TextInput
+                        id="size"
+                        value={size.toString()}
+                        label="Shoe size"
+                        onChange={onChange}
+                        type="number"
+                        error={errors.size}
+                    />
+                    <TextInput
+                        id="price"
+                        value={price.toString()}
+                        label="Price"
+                        onChange={onChange}
+                        type="number"
+                        error={errors.price}
+                    />
+                    <TextInput
+                        id="date"
+                        value={date.toString()}
+                        label="Release Date"
+                        onChange={onChange}
+                        type="date"
+                        error={errors.date}
+                    />
                     <button type="submit">Add shoe</button>
                 </form>
             </section>
