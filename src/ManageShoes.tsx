@@ -78,6 +78,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
                         value={name}
                         label="Shoe name"
                         onChange={onChange}
+                        onBlur={}
                         type="text"
                         error={errors.name}
                     />

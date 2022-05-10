@@ -16,6 +16,11 @@ interface TextInputProps {
 }
 
 export default function SelectInput({ id, value, label, options, error, onChange }: TextInputProps) {
+    const additionalInputProps: any = {};
+    if (error) {
+        additionalInputProps["aria-invalid"] = true;
+        additionalInputProps["aria-describedby"] = id + "-error";
+    }
     return (
         <>
             <div>
@@ -25,12 +30,13 @@ export default function SelectInput({ id, value, label, options, error, onChange
                     id={id}
                     value={value}
                     onChange={onChange}
+                    {...additionalInputProps}
                 >
                     { options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>) }
                 </select>
                 <br/>
             </div>
-            {error && <div>{error}</div>}
+            {error && <p id={id + "-error"} role="alert">{error}</p>}
         </>
     );
 }
