@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Shoe } from "./types/types";
 import ManageShoes from "./ManageShoes";
 import Home from './Home';
 
 function App() {
     // The state is watched by React so that it knows when to re-render the screen
-    const [shoes, setShoes] = useState(["Nike", "Reebok", "Adidas"]);
+    const [shoes, setShoes] = useState<Shoe[]>([
+        { brand: "Nike", name: "Air Max" },
+        { brand: "Reebok", name: "Pump" }
+    ]);
     return (<>
             <BrowserRouter>
             <header>

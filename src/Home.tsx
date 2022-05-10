@@ -1,5 +1,7 @@
+import { Shoe } from "./types/types";
+
 interface HomeProps {
-    shoes: string[];
+    shoes: Shoe[];
 }
 
 function Home({ shoes }: HomeProps) {
@@ -8,7 +10,7 @@ function Home({ shoes }: HomeProps) {
         <>
             <h1>Everkicks</h1>
             <ul>
-                { shoes.map((shoe) => <li>{shoe}</li>) }
+                { shoes.map((shoe) => <li>{shoe.brand + " " + shoe.name}</li>) }
             </ul>
         </>
     );
