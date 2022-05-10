@@ -7,8 +7,8 @@ import Home from './Home';
 function App() {
     // The state is watched by React so that it knows when to re-render the screen
     const [shoes, setShoes] = useState<Shoe[]>([
-        { brand: "Nike", name: "Air Max" },
-        { brand: "Reebok", name: "Pump" }
+        { brand: "Nike", name: "Air Max", size: 10, price: 89.99, date: "12/2012" },
+        { brand: "Reebok", name: "Pump" , size: 11, price: 74.99, date: "3/2017" }
     ]);
     return (<>
             <BrowserRouter>

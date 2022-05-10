@@ -6,12 +6,12 @@ interface ManageShoesProps {
     setShoes: React.Dispatch<React.SetStateAction<Shoe[]>>
 }
 
-const defaultShoe: Shoe = { name: "", brand: "" }
+const defaultShoe: Shoe = { name: "", brand: "", size: 0, price: 0, date: "" }
 
 function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
     // The state is watched by React so that it knows when to re-render the screen
     const [newShoe, setNewShoe] = useState<Shoe>(defaultShoe);
-    const { name, brand } = newShoe;
+    const { name, brand, size, price, date } = newShoe;
 
     function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) {
         setNewShoe({ ...newShoe, [event.target.id]: event.target.value });
@@ -46,6 +46,41 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
                             type="text"
                             id="name"
                             value={name}
+                            onChange={onChange}
+                        />
+                        <br/>
+                    </div>
+                    <div>
+                        <label htmlFor="size">Shoe size</label>
+                        <br/>
+                        <input
+                            type="number"
+                            step="0.5"
+                            id="size"
+                            value={size}
+                            onChange={onChange}
+                        />
+                        <br/>
+                    </div>
+                    <div>
+                        <label htmlFor="price">Price</label>
+                        <br/>
+                        <input
+                            type="number"
+                            step="0.01"
+                            id="price"
+                            value={price}
+                            onChange={onChange}
+                        />
+                        <br/>
+                    </div>
+                    <div>
+                        <label htmlFor="date">Release Date</label>
+                        <br/>
+                        <input
+                            type="date"
+                            id="date"
+                            value={date}
                             onChange={onChange}
                         />
                         <br/>
