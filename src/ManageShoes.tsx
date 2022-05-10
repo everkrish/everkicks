@@ -1,3 +1,4 @@
+import { ShoeList } from "src/ShoeList";
 import { Shoe } from "./types/types";
 import { ChangeEvent, useState } from "react";
 
@@ -90,9 +91,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
             </section>
             <section>
                 <h2>Shoes</h2>
-                <ul>
-                    {shoes.map((shoe) => <li>{shoe.brand + " " + shoe.name}</li>)}
-                </ul>
+                <ShoeList shoes={shoes} />
             </section>
         </>
     );

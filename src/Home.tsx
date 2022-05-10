@@ -1,3 +1,4 @@
+import { ShoeList } from "src/ShoeList";
 import { Shoe } from "./types/types";
 
 interface HomeProps {
@@ -9,9 +10,7 @@ function Home({ shoes }: HomeProps) {
     return (
         <>
             <h1>Everkicks</h1>
-            <ul>
-                { shoes.map((shoe) => <li>{shoe.brand + " " + shoe.name}</li>) }
-            </ul>
+            <ShoeList shoes={shoes}/>
         </>
     );
 }
