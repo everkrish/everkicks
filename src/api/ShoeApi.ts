@@ -1,4 +1,4 @@
-import { DbShoe, Shoe } from "src/types/types";
+import { Shoe } from "src/types/types";
 
 const API_URI = "http://localhost:3001";
 
