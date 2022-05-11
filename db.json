@@ -6,7 +6,7 @@
       "name": "Air Force 1",
       "size": 7,
       "price": 95.00,
-      "releaseDate": "1998-01-01"
+      "date": "1998-01-01"
     },
     {
       "id": 1,
@@ -14,7 +14,7 @@
       "name": "Ultra Boost",
       "size": 10,
       "price": 100.00,
-      "releaseDate": "2020-03-07"
+      "date": "2020-03-07"
     }
   ]
 }
