@@ -33,7 +33,7 @@
     "cy": "start-server-and-test start 3000 cypress:open",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "start:api": "json-server db.json -p 3001"
+    "start:api": "json-server db.json -p 3001 -w"
   },
   "eslintConfig": {
     "extends": [
