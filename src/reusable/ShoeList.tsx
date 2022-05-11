@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { CSSProperties, MouseEvent, useState } from "react";
 
 import { Shoe } from "src/types/types";
 
@@ -7,35 +7,41 @@ interface ShoeListProps {
 }
 
 export function ShoeList({ shoes }: ShoeListProps) {
-    const style: any = {
-        margin: "20px"
-
-    };
-    style["box-shadow"] = "0 4px 8px 0 rgba(0,0,0,0.2)";
-    style["transition"] = "0.3s";
-    style["padding"] = "16px";
-
-    function MouseOver(event: MouseEvent<HTMLDivElement>) {
-        // @ts-ignore
-        event.target.style.boxShadow = '0 8px 16px 0 rgba(0,0,0,0.2);';
-    }
-    function MouseOut(event: MouseEvent<HTMLDivElement>){
-        // @ts-ignore
-        event.target.style.boxShadow = "0 4px 8px 0 rgba(0,0,0,0.2)";
-    }
 
     return (
         <ul style={{ listStyleType: "none", display: "flex", padding: 0 }}>
             {shoes.map((shoe) =>
                 <li>
-                    <article style={style}>
-                        <h3> { shoe.brand + " " + shoe.name } </h3>
-                        <p style={{ color: "green", fontWeight: "bold" }}>${shoe.price}</p>
-                        <br/>
-                        <p>Size: {shoe.size}</p>
-                        <p>Released: <time dateTime={shoe.date}>{shoe.date}</time></p>
-                    </article>
+                    <Article shoe={shoe} />
                 </li>)}
         </ul>
+    );
+}
+
+function Article({ shoe }: { shoe: Shoe }) {
+    const [style, setStyle] = useState<CSSProperties>({
+        margin: "20px",
+        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+        transition: "0.3s",
+        padding: "16px",
+        backgroundColor: "rgba(0,255,255,0.2)"
+    });
+
+    function MouseOver(event: MouseEvent<HTMLDivElement>) {
+        setStyle({ ...style, backgroundColor: "rgba(0,255,255,0.5)" });
+    }
+
+    function MouseOut(event: MouseEvent<HTMLDivElement>) {
+        setStyle({ ...style, backgroundColor: "rgba(0,255,255,0.2)" });
+    }
+
+    return (
+        <article style={style} onMouseEnter={MouseOver} onMouseLeave={MouseOut}>
+            <h3> {shoe.brand + " " + shoe.name} </h3>
+            <p style={{ color: "green", fontWeight: "bold" }}>${shoe.price}</p>
+            <br/>
+            <p>Size: {shoe.size}</p>
+            <p>Released: <time dateTime={shoe.date}>{shoe.date}</time></p>
+        </article>
     );
 }
