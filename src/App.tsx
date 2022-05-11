@@ -22,7 +22,7 @@ function App() {
             </header>
             <main>
                     <Routes>
-                        <Route path="/" element={<Home shoes={shoes}/>} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/admin/shoes" element={<ManageShoes shoes={shoes} setShoes={setShoes}/>} />
                     </Routes>
             </main>
