@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { Shoe } from "./types/types";
+import { getShoes } from "src/api/ShoeApi";
+import { DbShoe } from "./types/types";
 import ManageShoes from "./ManageShoes";
 import Home from './Home';
 
 function App() {
     // The state is watched by React so that it knows when to re-render the screen
-    const [shoes, setShoes] = useState<Shoe[]>([
-        { brand: "Nike", name: "Air Max", size: 10, price: 89.99, date: "12/2012" },
-        { brand: "Reebok", name: "Pump" , size: 11, price: 74.99, date: "3/2017" }
-    ]);
+    const [shoes, setShoes] = useState<DbShoe[]>([]);
+    useEffect(() => {
+        async function getShoesWrapper() {
+            const dbShoes = await getShoes();
+            setShoes(dbShoes);
+        }
+        getShoesWrapper();
+        // Dependency array specifies when to re-run useEffect
+        // Since it should only run once, put an empty array
+    }, []);
     return (<>
             <BrowserRouter>
             <header>
@@ -22,7 +29,7 @@ function App() {
             </header>
             <main>
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" element={<Home shoes={shoes} />} />
                         <Route path="/admin/shoes" element={<ManageShoes shoes={shoes} setShoes={setShoes}/>} />
                     </Routes>
             </main>

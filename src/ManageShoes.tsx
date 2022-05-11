@@ -2,12 +2,12 @@ import { addShoe } from "src/api/ShoeApi";
 import SelectInput from "src/reusable/SelectInput";
 import TextInput from "src/reusable/TextInput";
 import { ShoeList } from "src/reusable/ShoeList";
-import { Shoe } from "./types/types";
+import { DbShoe, Shoe } from "./types/types";
 import { ChangeEvent, FocusEvent, FormEvent, useState } from "react";
 
 interface ManageShoesProps {
-    shoes: Shoe[],
-    setShoes: React.Dispatch<React.SetStateAction<Shoe[]>>
+    shoes: DbShoe[],
+    setShoes: React.Dispatch<React.SetStateAction<DbShoe[]>>
 }
 
 type TypeReplace<T, V> = { [K in keyof T]: T[K] extends Array<infer U> ? TypeReplace<U, V>[] : V };

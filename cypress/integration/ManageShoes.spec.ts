@@ -1,8 +1,11 @@
+/// <reference types="cypress" />
 
 // @ts-ignore
 describe("ManageShoes", () => {
     it('should visit the manage shoes page', () => {
         cy.visit("http://localhost:3000/admin/shoes");
+
+        cy.findByRole("heading", { name: "Nike Air Force 1" });
 
         // Check for error messages
         cy.findByRole("button", { name: "Add shoe" }).click();
@@ -20,7 +23,14 @@ describe("ManageShoes", () => {
         cy.findByLabelText("Release Date").type("1989-11-29");
         cy.findByRole("button", { name: "Add shoe" }).click();
 
-        cy.findByRole("heading", { name: "Shoes" }).closest("section").findByText("British Knights Oxford");
+        cy.findByRole("heading", { name: "Shoes" }).closest("section").findByRole("heading", { name: "British Knights Oxford" });
+
+        // Check warnings don't exist
+        cy.findByRole("alert", { name: "Brand is required." }).should('not.exist');
+        cy.findByRole("alert", { name: "Name is required." }).should('not.exist');
+        cy.findByRole("alert", { name: "Price is required." }).should('not.exist');
+        cy.findByRole("alert", { name: "Size is required." }).should('not.exist');
+        cy.findByRole("alert", { name: "Date is required." }).should('not.exist');
 
         cy.findByLabelText("Shoe name").should('be.empty');
         cy.findAllByLabelText("Brand").should('have.value', "");

@@ -1,8 +1,8 @@
-import { Shoe } from "src/types/types";
+import { DbShoe, Shoe } from "src/types/types";
 
 const API_URI = "http://localhost:3001";
 
-export async function getShoes(): Promise<Shoe[]> {
+export async function getShoes(): Promise<DbShoe[]> {
     const response = await fetch(`${API_URI}/shoes`);
     if (! response.ok) {
         throw response;
@@ -10,7 +10,7 @@ export async function getShoes(): Promise<Shoe[]> {
     return await response.json();
 }
 
-export async function addShoe(shoe: Shoe): Promise<Shoe> {
+export async function addShoe(shoe: Shoe): Promise<DbShoe> {
     const response = await fetch(`${API_URI}/shoes`, {
         method: "POST",
         headers: {

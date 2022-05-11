@@ -1,9 +1,9 @@
 import { CSSProperties, MouseEvent, useState } from "react";
 
-import { Shoe } from "src/types/types";
+import { DbShoe, Shoe } from "src/types/types";
 
 interface ShoeListProps {
-    shoes: Shoe[];
+    shoes: DbShoe[];
 }
 
 export function ShoeList({ shoes }: ShoeListProps) {
@@ -11,7 +11,7 @@ export function ShoeList({ shoes }: ShoeListProps) {
     return (
         <ul style={{ listStyleType: "none", display: "flex", padding: 0 }}>
             {shoes.map((shoe) =>
-                <li>
+                <li key={shoe.id}>
                     <Article shoe={shoe} />
                 </li>)}
         </ul>
