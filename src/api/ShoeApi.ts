@@ -23,3 +23,12 @@ export async function addShoe(shoe: Shoe): Promise<DbShoe> {
     }
     return await response.json();
 }
+
+export async function deleteShoe(shoeId: number) {
+    const resp = await fetch(`http://localhost:3001/shoes/${shoeId}`, {
+        method: "DELETE",
+    });
+    if (!resp.ok) {
+        throw resp;
+    }
+}

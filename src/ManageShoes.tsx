@@ -44,6 +44,10 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
         setTouched({ ...touched, [event.target.id]: true });
     }
 
+    function shoeDeleteHandler(shoeId: number) {
+        setShoes(shoes.filter((shoe) => shoe.id !== shoeId));
+    }
+
     function validate() {
         const currentErrors: Partial<Errors> = {};
         if (! newShoe.brand) {
@@ -144,7 +148,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
             </section>
             <section>
                 <h2>Shoes</h2>
-                <ShoeList shoes={shoes} />
+                <ShoeList shoes={shoes} deleteHandler={shoeDeleteHandler}/>
             </section>
         </>
     );

@@ -1,24 +1,31 @@
 import { CSSProperties, MouseEvent, useState } from "react";
+import { deleteShoe } from "src/api/ShoeApi";
 
 import { DbShoe, Shoe } from "src/types/types";
 
 interface ShoeListProps {
     shoes: DbShoe[];
+    deleteHandler?: (shoeId: number) => void;
 }
 
-export function ShoeList({ shoes }: ShoeListProps) {
+interface SingleShoeListProps {
+    shoe: DbShoe;
+    deleteHandler?: (shoeId: number) => void;
+}
+
+export function ShoeList({ shoes, deleteHandler }: ShoeListProps) {
 
     return (
         <ul style={{ listStyleType: "none", display: "flex", padding: 0 }}>
             {shoes.map((shoe) =>
                 <li key={shoe.id}>
-                    <Article shoe={shoe} />
+                    <Article shoe={shoe} deleteHandler={deleteHandler}/>
                 </li>)}
         </ul>
     );
 }
 
-function Article({ shoe }: { shoe: Shoe }) {
+function Article({ shoe, deleteHandler }: SingleShoeListProps) {
     const [style, setStyle] = useState<CSSProperties>({
         margin: "20px",
         boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -27,12 +34,17 @@ function Article({ shoe }: { shoe: Shoe }) {
         backgroundColor: "rgba(0,255,255,0.2)"
     });
 
-    function MouseOver(event: MouseEvent<HTMLDivElement>) {
+    function MouseOver() {
         setStyle({ ...style, backgroundColor: "rgba(0,255,255,0.5)" });
     }
 
-    function MouseOut(event: MouseEvent<HTMLDivElement>) {
+    function MouseOut() {
         setStyle({ ...style, backgroundColor: "rgba(0,255,255,0.2)" });
+    }
+
+    async function onClick() {
+        const deletedShoe = await deleteShoe(shoe.id);
+        deleteHandler && deleteHandler(shoe.id);
     }
 
     return (
@@ -42,6 +54,7 @@ function Article({ shoe }: { shoe: Shoe }) {
             <br/>
             <p>Size: {shoe.size}</p>
             <p>Released: <time dateTime={shoe.date}>{shoe.date}</time></p>
+            { deleteHandler && <button onClick={onClick}>Delete</button> }
         </article>
     );
 }
