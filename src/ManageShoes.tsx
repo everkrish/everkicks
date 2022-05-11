@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { addShoe, deleteShoe } from "src/api/ShoeApi";
+import LoadingContainer from "src/reusable/LoadingContainer";
 import SelectInput from "src/reusable/SelectInput";
 import TextInput from "src/reusable/TextInput";
 import { ShoeList } from "src/reusable/ShoeList";
@@ -37,11 +38,11 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
     const [status, setStatus] = useState<Status>(Status.IDLE);
     const { name, brand, size, price, date } = newShoe;
 
-    function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) {
+    function onChange(event: ChangeEvent<HTMLInputElement>|ChangeEvent<HTMLSelectElement>) {
         setNewShoe({ ...newShoe, [event.target.id]: event.target.value });
     }
 
-    function onBlur(event: FocusEvent<HTMLInputElement> | FocusEvent<HTMLSelectElement>) {
+    function onBlur(event: FocusEvent<HTMLInputElement>|FocusEvent<HTMLSelectElement>) {
         setTouched({ ...touched, [event.target.id]: true });
     }
 
@@ -55,7 +56,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
-            progress: undefined,
+            progress: undefined
         });
     }
 
@@ -100,69 +101,74 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
             ? errors[name]
             : undefined;
     }
-        return (
+
+    return (
         <>
             <h1>Everkicks: Manage Shoes</h1>
-            <section>
-                <h2>Add Shoe</h2>
-                <form onSubmit={onSubmit}>
-                    <SelectInput
-                        id="brand" value={brand} label="Brand" onChange={onChange} onBlur={onBlur}
-                        options={[
-                            { value: "", label: "Select brand" },
-                            { value: "Nike", label: "Nike" },
-                            { value: "Adidas", label: "Adidas" },
-                            { value: "British Knights", label: "British Knights" }
-                        ]}
-                        error={getErrorForName("brand")}
-                    />
-                    <TextInput
-                        id="name"
-                        value={name}
-                        label="Shoe name"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        type="text"
-                        error={getErrorForName("name")}
-                    />
-                    <TextInput
-                        id="size"
-                        value={size}
-                        label="Shoe size"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        type="number"
-                        step="0.5"
-                        error={getErrorForName("size")}
-                    />
-                    <TextInput
-                        id="price"
-                        value={price}
-                        label="Price"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        type="number"
-                        step="0.01"
-                        error={getErrorForName("price")}
-                    />
-                    <TextInput
-                        id="date"
-                        value={date}
-                        label="Release Date"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        type="date"
-                        error={getErrorForName("date")}
-                    />
-                    <button type="submit">Add shoe</button>
-                </form>
-            </section>
-            <section>
-                <h2>Shoes</h2>
-                <ShoeList shoes={shoes} deleteHandler={shoeDeleteHandler}/>
-            </section>
+            <LoadingContainer isLoading={shoes.length === 0}>
+                <section>
+                    <h2>Add Shoe</h2>
+                    <form onSubmit={onSubmit}>
+                        <SelectInput
+                            id="brand" value={brand} label="Brand" onChange={onChange}
+                            onBlur={onBlur}
+                            options={[
+                                { value: "", label: "Select brand" },
+                                { value: "Nike", label: "Nike" },
+                                { value: "Adidas", label: "Adidas" },
+                                { value: "British Knights", label: "British Knights" }
+                            ]}
+                            error={getErrorForName("brand")}
+                        />
+                        <TextInput
+                            id="name"
+                            value={name}
+                            label="Shoe name"
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            type="text"
+                            error={getErrorForName("name")}
+                        />
+                        <TextInput
+                            id="size"
+                            value={size}
+                            label="Shoe size"
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            type="number"
+                            step="0.5"
+                            error={getErrorForName("size")}
+                        />
+                        <TextInput
+                            id="price"
+                            value={price}
+                            label="Price"
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            type="number"
+                            step="0.01"
+                            error={getErrorForName("price")}
+                        />
+                        <TextInput
+                            id="date"
+                            value={date}
+                            label="Release Date"
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            type="date"
+                            error={getErrorForName("date")}
+                        />
+                        <button type="submit">Add shoe</button>
+                    </form>
+                </section>
+                <section>
+                    <h2>Shoes</h2>
+                    <ShoeList shoes={shoes} deleteHandler={shoeDeleteHandler}/>
+                </section>
+            </LoadingContainer>
         </>
     );
+
 }
 
 export default ManageShoes;

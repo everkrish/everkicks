@@ -1,5 +1,4 @@
 import { CSSProperties, MouseEvent, useState } from "react";
-import { deleteShoe } from "src/api/ShoeApi";
 
 import { DbShoe, Shoe } from "src/types/types";
 

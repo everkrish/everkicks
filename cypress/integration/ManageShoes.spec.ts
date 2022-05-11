@@ -43,7 +43,7 @@ describe("ManageShoes", () => {
         cy.findByRole("button", { name: "Delete British Knights Oxford" }).should("not.exist");
 
         // Test deleting british knights
-        cy.findByRole("navigation").findByRole("link", { name: "Admin home"}).click();
+        cy.findByRole("navigation").findByRole("link", { name: "Admin home" }).click();
         cy.url().should("eq", "http://localhost:3000/admin/shoes");
 
         cy.findByRole("heading", { name: "British Knights Oxford" })
@@ -51,6 +51,6 @@ describe("ManageShoes", () => {
             .findByRole("button", { name: "Delete British Knights Oxford" }).click();
 
         cy.findByRole("heading", { name: "British Knights Oxford" }).should("not.exist");
-        cy.findAllByRole("alert").findByText("British Knights Oxford was deleted");
+        cy.get(".Toastify").findAllByRole("alert").findByText("British Knights Oxford was deleted");
     });
 })

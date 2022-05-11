@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { getShoes } from "src/api/ShoeApi";
+import LoadingContainer from "src/reusable/LoadingContainer";
 import { ShoeList } from "src/reusable/ShoeList";
 import { DbShoe, Shoe } from "./types/types";
 
@@ -12,7 +11,9 @@ function Home({ shoes }: HomeProps) {
     return (
         <>
             <h1>Everkicks</h1>
-            <ShoeList shoes={shoes}/>
+            <LoadingContainer isLoading={shoes.length === 0}>
+                <ShoeList shoes={shoes}/>
+            </LoadingContainer>
         </>
     );
 }
