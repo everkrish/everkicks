@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler } from "react";
+import InputWrapper from "src/reusable/InputWrapper";
 
 interface TextInputProps {
     /** Unique id */
@@ -24,22 +25,16 @@ export default function SelectInput({ id, value, label, options, error, onChange
         additionalInputProps["aria-describedby"] = id + "-error";
     }
     return (
-        <>
-            <div>
-                <label htmlFor={id}>{label}</label>
-                <br/>
-                <select
-                    id={id}
-                    value={value}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    {...additionalInputProps}
-                >
-                    { options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>) }
-                </select>
-                <br/>
-            </div>
-            {error && <p id={id + "-error"} role="alert">{error}</p>}
-        </>
+        <InputWrapper id={id} label={label} error={error}>
+            <select
+                id={id}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                {...additionalInputProps}
+            >
+                { options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>) }
+            </select>
+        </InputWrapper>
     );
 }
