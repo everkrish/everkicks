@@ -40,5 +40,17 @@ describe("ManageShoes", () => {
         cy.url().should("eq", "http://localhost:3000/");
         cy.findByRole("heading", { name: "Add Shoe" }).should('not.exist');
         cy.findByText("British Knights Oxford");
+        cy.findByRole("button", { name: "Delete British Knights Oxford" }).should("not.exist");
+
+        // Test deleting british knights
+        cy.findByRole("navigation").findByRole("link", { name: "Admin home"}).click();
+        cy.url().should("eq", "http://localhost:3000/admin/shoes");
+
+        cy.findByRole("heading", { name: "British Knights Oxford" })
+            .closest("article")
+            .findByRole("button", { name: "Delete British Knights Oxford" }).click();
+
+        cy.findByRole("heading", { name: "British Knights Oxford" }).should("not.exist");
+        // cy.findByRole("alert", { name: "British Knights Oxford was deleted"});
     });
 })

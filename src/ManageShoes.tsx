@@ -1,4 +1,4 @@
-import { addShoe } from "src/api/ShoeApi";
+import { addShoe, deleteShoe } from "src/api/ShoeApi";
 import SelectInput from "src/reusable/SelectInput";
 import TextInput from "src/reusable/TextInput";
 import { ShoeList } from "src/reusable/ShoeList";
@@ -46,6 +46,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
 
     function shoeDeleteHandler(shoeId: number) {
         setShoes(shoes.filter((shoe) => shoe.id !== shoeId));
+        deleteShoe(shoeId);
     }
 
     function validate() {

@@ -5,6 +5,7 @@ import { DbShoe, Shoe } from "src/types/types";
 
 interface ShoeListProps {
     shoes: DbShoe[];
+    /** When passed, the delete button will be rendered and call this function */
     deleteHandler?: (shoeId: number) => void;
 }
 
@@ -43,7 +44,6 @@ function Article({ shoe, deleteHandler }: SingleShoeListProps) {
     }
 
     async function onClick() {
-        const deletedShoe = await deleteShoe(shoe.id);
         deleteHandler && deleteHandler(shoe.id);
     }
 
@@ -54,7 +54,12 @@ function Article({ shoe, deleteHandler }: SingleShoeListProps) {
             <br/>
             <p>Size: {shoe.size}</p>
             <p>Released: <time dateTime={shoe.date}>{shoe.date}</time></p>
-            { deleteHandler && <button onClick={onClick}>Delete</button> }
+            { deleteHandler && <button
+                onClick={onClick}
+                aria-label={ "Delete " + shoe.brand + " " + shoe.name }
+            >
+                Delete
+            </button> }
         </article>
     );
 }
