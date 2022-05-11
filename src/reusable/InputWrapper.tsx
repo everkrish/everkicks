@@ -17,7 +17,13 @@ export default function InputWrapper({ children, id, label, error }: InputWrappe
                 {children}
                 <br/>
             </div>
-            {error && <p id={id + "-error"} aria-label={error} role="alert">{error}</p>}
+            <p
+                id={id + "-error"}
+                aria-label={error}
+                role="alert"
+            >
+                {error}
+            </p>
         </>
     );
 }
