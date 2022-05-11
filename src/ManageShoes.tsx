@@ -1,8 +1,9 @@
+import { addShoe } from "src/api/ShoeApi";
 import SelectInput from "src/reusable/SelectInput";
 import TextInput from "src/reusable/TextInput";
-import { ShoeList } from "src/ShoeList";
+import { ShoeList } from "src/reusable/ShoeList";
 import { Shoe } from "./types/types";
-import { ChangeEvent, FocusEvent, useState } from "react";
+import { ChangeEvent, FocusEvent, FormEvent, useState } from "react";
 
 interface ManageShoesProps {
     shoes: Shoe[],
@@ -66,6 +67,19 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
     const errors = validate();
     const isValid = Object.keys(errors).length === 0;
 
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setStatus(Status.SUBMITTING);
+        if (! isValid) {
+            setStatus(Status.SUBMITTED);
+            return;
+        }
+        const addedShoe = await addShoe(newShoe)
+        setShoes([...shoes, addedShoe]);
+        setNewShoe(defaultShoe);
+        setTouched(untouchedForm);
+    }
+
     function getErrorForName(name: keyof Shoe) {
         return touched[name] || status === Status.SUBMITTED
             ? errors[name]
@@ -76,17 +90,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
             <h1>Everkicks: Manage Shoes</h1>
             <section>
                 <h2>Add Shoe</h2>
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    setStatus(Status.SUBMITTING);
-                    if (! isValid) {
-                        setStatus(Status.SUBMITTED);
-                        return;
-                    }
-                    setShoes([...shoes, newShoe]);
-                    setNewShoe(defaultShoe);
-                    setTouched(untouchedForm);
-                }}>
+                <form onSubmit={onSubmit}>
                     <SelectInput
                         id="brand" value={brand} label="Brand" onChange={onChange} onBlur={onBlur}
                         options={[
