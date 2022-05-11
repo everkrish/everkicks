@@ -6,12 +6,12 @@ import { DbShoe, Shoe } from "src/types/types";
 interface ShoeListProps {
     shoes: DbShoe[];
     /** When passed, the delete button will be rendered and call this function */
-    deleteHandler?: (shoeId: number) => void;
+    deleteHandler?: (shoe: DbShoe) => void;
 }
 
 interface SingleShoeListProps {
     shoe: DbShoe;
-    deleteHandler?: (shoeId: number) => void;
+    deleteHandler?: (shoe: DbShoe) => void;
 }
 
 export function ShoeList({ shoes, deleteHandler }: ShoeListProps) {
@@ -44,7 +44,7 @@ function Article({ shoe, deleteHandler }: SingleShoeListProps) {
     }
 
     async function onClick() {
-        deleteHandler && deleteHandler(shoe.id);
+        deleteHandler && deleteHandler(shoe);
     }
 
     return (

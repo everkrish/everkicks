@@ -51,6 +51,6 @@ describe("ManageShoes", () => {
             .findByRole("button", { name: "Delete British Knights Oxford" }).click();
 
         cy.findByRole("heading", { name: "British Knights Oxford" }).should("not.exist");
-        // cy.findByRole("alert", { name: "British Knights Oxford was deleted"});
+        cy.findAllByRole("alert").findByText("British Knights Oxford was deleted");
     });
 })

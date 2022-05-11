@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { addShoe, deleteShoe } from "src/api/ShoeApi";
 import SelectInput from "src/reusable/SelectInput";
 import TextInput from "src/reusable/TextInput";
@@ -44,9 +45,18 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
         setTouched({ ...touched, [event.target.id]: true });
     }
 
-    function shoeDeleteHandler(shoeId: number) {
-        setShoes(shoes.filter((shoe) => shoe.id !== shoeId));
-        deleteShoe(shoeId);
+    function shoeDeleteHandler(shoe: DbShoe) {
+        deleteShoe(shoe.id);
+        setShoes(shoes.filter((shoeFromList) => shoeFromList.id !== shoe.id));
+        toast.success(`${shoe.brand} ${shoe.name} was deleted`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
     function validate() {
