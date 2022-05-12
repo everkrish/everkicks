@@ -9,7 +9,8 @@ import { ChangeEvent, FocusEvent, FormEvent, useState } from "react";
 
 interface ManageShoesProps {
     shoes: DbShoe[],
-    setShoes: React.Dispatch<React.SetStateAction<DbShoe[]>>
+    setShoes: React.Dispatch<React.SetStateAction<DbShoe[]>>,
+    isLoading: boolean
 }
 
 type TypeReplace<T, V> = { [K in keyof T]: T[K] extends Array<infer U> ? TypeReplace<U, V>[] : V };
@@ -31,7 +32,7 @@ const untouchedForm = {
 
 const defaultShoe: Shoe = { name: "", brand: "", size: 0, price: 0, date: "" }
 
-function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
+function ManageShoes({ shoes, setShoes, isLoading }: ManageShoesProps) {
     // The state is watched by React so that it knows when to re-render the screen
     const [newShoe, setNewShoe] = useState<Shoe>(defaultShoe);
     const [touched, setTouched] = useState(untouchedForm);
@@ -105,7 +106,7 @@ function ManageShoes({ shoes, setShoes }: ManageShoesProps) {
     return (
         <>
             <h1>Everkicks: Manage Shoes</h1>
-            <LoadingContainer isLoading={shoes.length === 0}>
+            <LoadingContainer isLoading={isLoading}>
                 <section>
                     <h2>Add Shoe</h2>
                     <form onSubmit={onSubmit}>

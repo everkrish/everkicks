@@ -4,14 +4,15 @@ import { DbShoe, Shoe } from "./types/types";
 
 interface HomeProps {
     shoes: DbShoe[];
+    isLoading: boolean;
 }
 
-function Home({ shoes }: HomeProps) {
+function Home({ shoes, isLoading }: HomeProps) {
     // The state is watched by React so that it knows when to re-render the screen
     return (
         <>
             <h1>Everkicks</h1>
-            <LoadingContainer isLoading={shoes.length === 0}>
+            <LoadingContainer isLoading={isLoading}>
                 <ShoeList shoes={shoes}/>
             </LoadingContainer>
         </>

@@ -5,13 +5,22 @@ import { DbShoe } from "./types/types";
 import ManageShoes from "./ManageShoes";
 import Home from './Home';
 
+enum Status {
+    IDLE,
+    LOADING,
+    LOADED
+}
+
 function App() {
     // The state is watched by React so that it knows when to re-render the screen
     const [shoes, setShoes] = useState<DbShoe[]>([]);
+    const [status, setStatus] = useState<Status>(Status.IDLE);
     useEffect(() => {
         async function getShoesWrapper() {
+            setStatus(Status.LOADING);
             const dbShoes = await getShoes();
             setShoes(dbShoes);
+            setStatus(Status.LOADED);
         }
         getShoesWrapper();
         // Dependency array specifies when to re-run useEffect
@@ -29,8 +38,8 @@ function App() {
             </header>
             <main>
                     <Routes>
-                        <Route path="/" element={<Home shoes={shoes} />} />
-                        <Route path="/admin/shoes" element={<ManageShoes shoes={shoes} setShoes={setShoes}/>} />
+                        <Route path="/" element={<Home shoes={shoes} isLoading={status !== Status.LOADED}/>} />
+                        <Route path="/admin/shoes" element={<ManageShoes shoes={shoes} setShoes={setShoes} isLoading={status !== Status.LOADED}/>} />
                     </Routes>
             </main>
             </BrowserRouter>
