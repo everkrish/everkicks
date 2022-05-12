@@ -91,10 +91,19 @@ function ManageShoes({ shoes, setShoes, isLoading }: ManageShoesProps) {
             setStatus(Status.SUBMITTED);
             return;
         }
-        const addedShoe = await addShoe(newShoe)
+        const addedShoe = await addShoe(newShoe);
         setShoes([...shoes, addedShoe]);
         setNewShoe(defaultShoe);
         setTouched(untouchedForm);
+        toast.success(`${addedShoe.brand} ${addedShoe.name} was added`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
     }
 
     function getErrorForName(name: keyof Shoe) {
