@@ -7,6 +7,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "react-toastify/dist/ReactToastify.css";
 
+if (process.env.REACT_APP_SHOW_DEV_TOOLS === "Y") {
+    const { worker } = require("./mocks/browser");
+    worker.start();
+}
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
