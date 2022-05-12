@@ -7,14 +7,6 @@
       "size": 7,
       "price": 95,
       "date": "1998-01-01"
-    },
-    {
-      "id": 1,
-      "brand": "Adidas",
-      "name": "Ultra Boost",
-      "size": 10,
-      "price": 100,
-      "date": "2020-03-07"
     }
   ]
 }
