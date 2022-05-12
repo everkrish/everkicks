@@ -1,5 +1,23 @@
 /// <reference types="cypress" />
 
+function deleteShoe(name: string) {
+    cy.findByRole("button", { name: `Delete ${name}` }).click();
+
+    cy.get(".Toastify")
+        .findByText(`${name} was deleted`);
+}
+
+function addShoe(brand: string, name: string, price: number, size: number, date: string) {
+    cy.findByLabelText("Brand").select(brand);
+    cy.findByLabelText("Shoe name").type(name);
+    cy.findByLabelText("Price").type(price);
+    cy.findByLabelText("Shoe size").type(size);
+    cy.findByLabelText("Release Date").type(date);
+    cy.findByRole("button", { name: "Add shoe" }).click();
+
+    cy.findByRole("heading", { name: "Shoes" }).closest("section").findByRole("heading", { name: `${brand} ${name}` });
+}
+
 // @ts-ignore
 describe("ManageShoes", () => {
     it('should visit the manage shoes page', () => {
@@ -16,14 +34,13 @@ describe("ManageShoes", () => {
         cy.findByRole("alert", { name: "Date is required." });
 
         // Check input works on admin page
-        cy.findByLabelText("Brand").select("British Knights");
-        cy.findByLabelText("Shoe name").type("Oxford");
-        cy.findByLabelText("Price").type("89.99");
-        cy.findByLabelText("Shoe size").type("10.5");
-        cy.findByLabelText("Release Date").type("1989-11-29");
-        cy.findByRole("button", { name: "Add shoe" }).click();
-
-        cy.findByRole("heading", { name: "Shoes" }).closest("section").findByRole("heading", { name: "British Knights Oxford" });
+        addShoe(
+            "British Knights",
+            "Oxford",
+            89.99,
+            10.5,
+            "1989-11-29"
+        );
 
         // Check warnings don't exist
         cy.findByRole("alert", { name: "Brand is required." }).should('not.exist');
@@ -46,11 +63,16 @@ describe("ManageShoes", () => {
         cy.findByRole("navigation").findByRole("link", { name: "Admin home" }).click();
         cy.url().should("eq", "http://localhost:3000/admin/shoes");
 
-        cy.findByRole("heading", { name: "British Knights Oxford" })
-            .closest("article")
-            .findByRole("button", { name: "Delete British Knights Oxford" }).click();
+        deleteShoe("British Knights Oxford");
+        deleteShoe("Nike Air Force 1");
+        cy.findByText("No shoes :(");
 
-        cy.findByRole("heading", { name: "British Knights Oxford" }).should("not.exist");
-        cy.get(".Toastify").findAllByRole("alert").findByText("British Knights Oxford was deleted");
+        addShoe(
+            "Nike",
+            "Air Force 1",
+            7,
+            95,
+            "1998-01-01"
+        );
     });
 })
