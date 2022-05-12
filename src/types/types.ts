@@ -9,3 +9,8 @@ export interface Shoe {
 export interface DbShoe extends Shoe {
     id: number;
 }
+
+export enum User {
+    CUSTOMER = "customer",
+    ADMIN = "admin"
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { ToastContainer } from "react-toastify";
+import { UserContextProvider } from "src/UserContext";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "react-toastify/dist/ReactToastify.css";
@@ -11,8 +12,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <ToastContainer/>
-        <App/>
+        <UserContextProvider>
+            <ToastContainer/>
+            <App/>
+        </UserContextProvider>
     </React.StrictMode>
 );
 

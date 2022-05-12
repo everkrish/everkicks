@@ -1,19 +1,13 @@
 import { useState } from "react";
 import SelectInput from "src/reusable/SelectInput";
+import { User } from "src/types/types";
 import "./DevTools.css";
+import { useUserContext } from "src/UserContext";
 
-export enum userType {
-    CUSTOMER = "customer",
-    ADMIN = "admin"
-}
 
-export interface DevToolsProps {
-    user: userType;
-    setUser: (user: userType) => void;
-}
-
-export default function DevTools({ user, setUser }: DevToolsProps) {
+export default function DevTools() {
     const [isOpen, setIsOpen] = useState(true);
+    const { user, setUser } = useUserContext();
 
     return (
         <div className="devtools">
@@ -23,11 +17,11 @@ export default function DevTools({ user, setUser }: DevToolsProps) {
             <SelectInput
                 id="user"
                 label="User"
-                onChange={(e) => setUser(e.target.value as userType)}
+                onChange={(e) => setUser(e.target.value as User)}
                 value={user}
                 options={[
-                    { label: "Customer", value: userType.CUSTOMER },
-                    { label: "Admin", value: userType.ADMIN },
+                    { label: "Customer", value: User.CUSTOMER },
+                    { label: "Admin", value: User.ADMIN },
                 ]}
             />
         </div>
