@@ -15,6 +15,10 @@ interface SingleShoeListProps {
 
 export function ShoeList({ shoes, deleteHandler }: ShoeListProps) {
 
+    if (shoes.length === 0) {
+        return <p>No shoes :(</p>;
+    }
+
     return (
         <ul style={{ listStyleType: "none", display: "flex", padding: 0 }}>
             {shoes.map((shoe) =>
